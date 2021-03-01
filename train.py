@@ -136,7 +136,7 @@ class Yolo_loss(nn.Module):
         self.n_classes = n_classes
         self.n_anchors = n_anchors
 
-        self.anchors = [[12, 16], [19, 36], [40, 28], [36, 75], [76, 55], [72, 146], [142, 110], [192, 243], [459, 401]]
+        self.anchors = [[4,  8], [6, 17], [13, 12], [12, 30], [24, 21], [23, 51], [42, 35], [50, 74], [97,106]]
         self.anch_masks = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
         self.ignore_thre = 0.5
 
@@ -323,6 +323,7 @@ def train(model, device, config, epochs=5, batch_size=1, save_cp=True, log_step=
         Optimizer:       {config.TRAIN_OPTIMIZER}
         Dataset classes: {config.classes}
         Train label path:{config.train_label}
+        Logs label path: {config.checkpoints}
         Pretrained:
     ''')
 
@@ -542,6 +543,9 @@ def get_args(**kwargs):
     parser.add_argument('-pretrained', type=str, default=None, help='pretrained yolov4.conv.137')
     parser.add_argument('-classes', type=int, default=80, help='dataset classes')
     parser.add_argument('-train_label_path', dest='train_label', type=str, default='train.txt', help="train label path")
+    parser.add_argument('-val_label_path', dest='val_label', type=str, default='train.txt', help="train label path")
+    parser.add_argument('-checkpoints_basedir', dest='checkpoints', type=str, default='./', help="")
+    parser.add_argument('-tb_basedir', dest='TRAIN_TENSORBOARD_DIR', type=str, default='./', help="")
     parser.add_argument(
         '-optimizer', type=str, default='adam',
         help='training optimizer',

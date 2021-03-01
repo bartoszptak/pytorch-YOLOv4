@@ -330,7 +330,7 @@ class Yolov4Head(nn.Module):
 
         self.yolo1 = YoloLayer(
                                 anchor_mask=[0, 1, 2], num_classes=n_classes,
-                                anchors=[12, 16, 19, 36, 40, 28, 36, 75, 76, 55, 72, 146, 142, 110, 192, 243, 459, 401],
+                                anchors=[4,  8,   6, 17,  13, 12,  12, 30,  24, 21,  23, 51,  42, 35,  50, 74,  97,106],
                                 num_anchors=9, stride=8)
 
         # R -4
@@ -347,7 +347,7 @@ class Yolov4Head(nn.Module):
         
         self.yolo2 = YoloLayer(
                                 anchor_mask=[3, 4, 5], num_classes=n_classes,
-                                anchors=[12, 16, 19, 36, 40, 28, 36, 75, 76, 55, 72, 146, 142, 110, 192, 243, 459, 401],
+                                anchors=[4,  8,   6, 17,  13, 12,  12, 30,  24, 21,  23, 51,  42, 35,  50, 74,  97,106],
                                 num_anchors=9, stride=16)
 
         # R -4
@@ -364,7 +364,7 @@ class Yolov4Head(nn.Module):
         
         self.yolo3 = YoloLayer(
                                 anchor_mask=[6, 7, 8], num_classes=n_classes,
-                                anchors=[12, 16, 19, 36, 40, 28, 36, 75, 76, 55, 72, 146, 142, 110, 192, 243, 459, 401],
+                                anchors=[4,  8,   6, 17,  13, 12,  12, 30,  24, 21,  23, 51,  42, 35,  50, 74,  97,106],
                                 num_anchors=9, stride=32)
 
     def forward(self, input1, input2, input3):
