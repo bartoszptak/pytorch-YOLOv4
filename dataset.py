@@ -408,7 +408,6 @@ class Yolo_dataset(Dataset):
         target['iscrowd'] = torch.zeros((num_objs,), dtype=torch.int64)
         return img, target
 
-
 def get_image_id(filename:str) -> int:
     """
     Convert a string to a integer.
@@ -423,11 +422,14 @@ def get_image_id(filename:str) -> int:
     >>> no = f"{int(no):04d}"
     >>> return int(lv+no)
     """
-    raise NotImplementedError("Create your own 'get_image_id' function")
-    lv, no = os.path.splitext(os.path.basename(filename))[0].split("_")
-    lv = lv.replace("level", "")
-    no = f"{int(no):04d}"
-    return int(lv+no)
+    name = os.path.splitext(os.path.basename(filename))[0].split('_')
+    name = int(name[0]+name[1]+name[3][3:])
+
+    #raise NotImplementedError("Create your own 'get_image_id' function")
+    #lv, no = os.path.splitext(os.path.basename(filename))[0].split("_")
+    #lv = lv.replace("level", "")
+    #no = f"{int(no):04d}"
+    return name
 
 
 if __name__ == "__main__":
@@ -436,10 +438,12 @@ if __name__ == "__main__":
 
     random.seed(2020)
     np.random.seed(2020)
-    Cfg.dataset_dir = '/mnt/e/Dataset'
-    dataset = Yolo_dataset(Cfg.train_label, Cfg)
-    for i in range(100):
+    Cfg.dataset_dir = '/home/bartoszptak/testing/pytorch-YOLOv4/data/visdrone'
+    Cfg.train = False
+    dataset = Yolo_dataset(Cfg.train_label, Cfg, train=False)
+    for i in range(len(dataset)):
         out_img, out_bboxes = dataset.__getitem__(i)
-        a = draw_box(out_img.copy(), out_bboxes.astype(np.int32))
-        plt.imshow(a.astype(np.int32))
-        plt.show()
+        #a = draw_box(out_img.copy(), out_bboxes.astype(np.int32))
+        #plt.imshow(a.astype(np.int32))
+        #plt.show()
+
